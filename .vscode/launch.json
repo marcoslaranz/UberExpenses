@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET 9 Launch",
+      "type": "dotnet",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Debug/net9.0/YourApp.dll",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ]
+}

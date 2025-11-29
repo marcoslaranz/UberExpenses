@@ -1,0 +1,238 @@
+@page "/expense-form"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Uber Daily Expenses</PageTitle>
+
+<div class="container mt-4">
+    <h3>Uber Daily Expenses Entry</h3>
+
+    <EditForm Model="@expenseRecord" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="dateRecord" class="form-label">Date Record</label>
+                <InputDate id="dateRecord" class="form-control" @bind-Value="expenseRecord.DateRecord" />
+                <ValidationMessage For="@(() => expenseRecord.DateRecord)" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="timeRecordStarted" class="form-label">Time Record Started</label>
+                <InputDate Type="InputDateType.Time" id="timeRecordStarted" class="form-control" @bind-Value="expenseRecord.TimeRecordStarted" />
+                <ValidationMessage For="@(() => expenseRecord.TimeRecordStarted)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="kmsStart" class="form-label">Kms Start</label>
+                <InputNumber id="kmsStart" class="form-control" @bind-Value="expenseRecord.KmsStart" />
+                <ValidationMessage For="@(() => expenseRecord.KmsStart)" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="timeRecordFinished" class="form-label">Time Record Finished</label>
+                <InputDate Type="InputDateType.Time" id="timeRecordFinished" class="form-control" @bind-Value="expenseRecord.TimeRecordFinished" />
+                <ValidationMessage For="@(() => expenseRecord.TimeRecordFinished)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="kmsFinish" class="form-label">Kms Finish</label>
+                <InputNumber id="kmsFinish" class="form-control" @bind-Value="expenseRecord.KmsFinish" />
+                <ValidationMessage For="@(() => expenseRecord.KmsFinish)" />
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="kmsPetrol" class="form-label">Kms Petrol (How many kms when fill)</label>
+                <InputNumber id="kmsPetrol" class="form-control" @bind-Value="expenseRecord.KmsPetrol" />
+                <ValidationMessage For="@(() => expenseRecord.KmsPetrol)" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="petroPrice" class="form-label">Petro Price</label>
+                <InputNumber id="petroPrice" class="form-control" @bind-Value="expenseRecord.PetroPrice" />
+                <ValidationMessage For="@(() => expenseRecord.PetroPrice)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="discount" class="form-label">Discount</label>
+                <InputNumber id="discount" class="form-control" @bind-Value="expenseRecord.Discount" />
+                <ValidationMessage For="@(() => expenseRecord.Discount)" />
+            </div>
+
+             <div class="col-md-6 mb-3">
+               <label for="litres" class="form-label">Litres</label>
+               <InputNumber id="litres" class="form-control" @bind-Value="expenseRecord.Litres" />
+               <ValidationMessage For="@(() => expenseRecord.Litres)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="pricePerLiter" class="form-label">Price Per Liter</label>
+                <InputNumber id="pricePerLiter" class="form-control" @bind-Value="expenseRecord.PricePerLiter"  />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="gst" class="form-label">GST</label>
+                <InputNumber id="gst" class="form-control" @bind-Value="expenseRecord.Gst" />
+                <ValidationMessage For="@(() => expenseRecord.Gst)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="earnDay" class="form-label">Earn Day</label>
+                <InputNumber id="earnDay" class="form-control" @bind-Value="expenseRecord.EarnDay" />
+                <ValidationMessage For="@(() => expenseRecord.EarnDay)" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label for="tollRoad" class="form-label">Toll Road</label>
+                <InputNumber id="tollRoad" class="form-control" @bind-Value="expenseRecord.TollRoad" />
+                <ValidationMessage For="@(() => expenseRecord.TollRoad)" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="otherExpenses" class="form-label">Other Expenses</label>
+                <InputNumber id="otherExpenses" class="form-control" @bind-Value="expenseRecord.OtherExpenses" />
+                <ValidationMessage For="@(() => expenseRecord.OtherExpenses)" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <InputTextArea id="description" class="form-control" rows="3" @bind-Value="expenseRecord.Description" />
+            <ValidationMessage For="@(() => expenseRecord.Description)" />
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Save Expense</button>
+            <button type="button" class="btn btn-secondary ms-2" @onclick="ResetForm">Clear</button>
+        </div>
+    </EditForm>
+
+    @if (savedExpenses.Any())
+    {
+        <hr class="my-4" />
+        <h4>Saved Expenses</h4>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Kms Day</th>
+                        <th>Earn Day</th>
+                        <th>Petro Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var expense in savedExpenses)
+                    {
+                        <tr>
+                            <td>@expense.DateRecord.ToShortDateString()</td>
+                            <td>@expense.TimeRecordStarted?.ToShortTimeString()</td>
+                            <td>@expense.TimeRecordFinished?.ToShortTimeString()</td>
+                            <td> 
+                                @(expense.KmsFinish - @expense.KmsStart)
+                            </td>
+
+                            <td>@expense.EarnDay?.ToString("C")</td>
+                            <td>@expense.PetroPrice?.ToString("C")</td>
+                            <td>
+                                <button class="btn btn-sm btn-danger" @onclick="() => DeleteExpense(expense)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@code {
+    private ExpenseRecord expenseRecord = new ExpenseRecord();
+    private List<ExpenseRecord> savedExpenses = new List<ExpenseRecord>();
+
+    private void HandleValidSubmit()
+    {
+        // Clone the current record and add to list
+        savedExpenses.Add(new ExpenseRecord
+        {
+            DateRecord = expenseRecord.DateRecord,
+            TimeRecordStarted = expenseRecord.TimeRecordStarted,
+            KmsStart = expenseRecord.KmsStart,
+            TimeRecordFinished = expenseRecord.TimeRecordFinished,
+            KmsFinish = expenseRecord.KmsFinish,
+            KmsPetrol = expenseRecord.KmsPetrol,
+            PetroPrice = expenseRecord.PetroPrice,
+            Discount = expenseRecord.Discount,
+            Litres = expenseRecord.Litres,
+            PricePerLiter = expenseRecord.PricePerLiter,
+            Gst = expenseRecord.Gst,
+            EarnDay = expenseRecord.EarnDay,
+            TollRoad = expenseRecord.TollRoad,
+            OtherExpenses = expenseRecord.OtherExpenses,
+            Description = expenseRecord.Description
+        });
+
+        ResetForm();
+    }
+
+    private void ResetForm()
+    {
+        expenseRecord = new ExpenseRecord();
+    }
+
+    private void DeleteExpense(ExpenseRecord expense)
+    {
+        savedExpenses.Remove(expense);
+    }
+
+    public class ExpenseRecord
+    {
+        [Required]
+        public DateTime DateRecord { get; set; } = DateTime.Today;
+
+        public DateTime? TimeRecordStarted { get; set; }
+
+        public decimal? KmsStart { get; set; }
+
+        public DateTime? TimeRecordFinished { get; set; }
+
+        public decimal? KmsFinish { get; set; }
+
+        public decimal? KmsPetrol { get; set; }
+
+        public decimal? PetroPrice { get; set; }
+
+        public decimal? Discount { get; set; }
+
+        public decimal? Litres { get; set; }
+
+        public decimal? PricePerLiter { get; set; }
+
+        public decimal? Gst { get; set; }
+
+        public decimal? EarnDay { get; set; }
+
+        public decimal? TollRoad { get; set; }
+
+        public decimal? OtherExpenses { get; set; }
+
+        public string? Description { get; set; }
+    }
+}

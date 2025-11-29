@@ -1,31 +1,37 @@
-name: Deploy Blazor WebAssembly to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # Trigger deployment when you push to main
+    branches: [ main ]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Checkout your repository
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # 2. Setup .NET SDK
+      - uses: actions/checkout@v3
+      
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0.x'   # Adjust to your target framework
-
-      # 3. Publish the Blazor WebAssembly project
-      - name: Publish
-        run: dotnet publish -c Release -o release
-
-      # 4. Deploy to GitHub Pages (gh-pages branch)
-      - name: Deploy
+          dotnet-version: '9.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore
+      
+      - name: Build and publish
+        run: dotnet publish -c Release -o release --nologo
+      
+      - name: Change base href
+        run: sed -i 's/<base href="\/" \/>/<base href="\/UberExpenses\/" \/>/g' release/wwwroot/index.html
+      
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./release/wwwroot
+          force_orphan: true
+          exclude_assets: 'README.md'
