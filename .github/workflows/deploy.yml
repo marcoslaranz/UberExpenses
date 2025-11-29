@@ -2,40 +2,34 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # Trigger deployment when you push to main
+    branches: [ main ]
 
 permissions:
-  contents: write        # Needed to checkout code
-  pages: write           # Needed to deploy to Pages
-  id-token: write        # Needed for authentication with Pages
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout your repository
       - name: Checkout
         uses: actions/checkout@v3
 
-      # 2. Setup .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.x'
 
-      # 3. Restore dependencies
       - name: Restore dependencies
         run: dotnet restore
 
-      # 4. Build and publish Blazor app
       - name: Build and publish
         run: dotnet publish -c Release -o release --nologo
 
-      # 5. Adjust base href for GitHub Pages
       - name: Change base href
         run: sed -i 's|<base href="/" />|<base href="/UberExpenses/" />|g' release/wwwroot/index.html
 
-      # 6. Upload artifact for Pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
@@ -48,7 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      # 7. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
