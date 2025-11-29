@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "UberExpenses",
   "resources": {
-    "hash": "sha256-JbOubweTWi39wDbXYDn+fJjV1MpZ/J26aIifwp6cOOg=",
+    "hash": "sha256-uy5ML2ySHu0+aKAfhyTjtulHaxax1EpN3LK5+0O3Nu8=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.tcgtl59okq.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Web.j3qko22j2r.wasm": "Microsoft.AspNetCore.Components.Web.wasm",
@@ -36,7 +36,7 @@
       "System.Text.Json.m4wdlob2qg.wasm": "System.Text.Json.wasm",
       "System.Text.RegularExpressions.k8ibga7wut.wasm": "System.Text.RegularExpressions.wasm",
       "System.Private.CoreLib.v699lc947m.wasm": "System.Private.CoreLib.wasm",
-      "UberExpenses.zpckktkgo4.wasm": "UberExpenses.wasm",
+      "UberExpenses.9sfhnvknfp.wasm": "UberExpenses.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.noby4tlk4d.js": "dotnet.native.js",
       "dotnet.native.qe75a9vfqn.wasm": "dotnet.native.wasm",
@@ -95,7 +95,7 @@
       "System.Text.Encodings.Web.dvi1t3okep.wasm": "sha256-N0H/XiI7CqSVWRBwOAksJI9mQ1UaYSw6kuREMzV/aw8=",
       "System.Text.Json.m4wdlob2qg.wasm": "sha256-5qjfGZGHbvBXYE9OBLQ32FHz6vObx9o8C5SsZm1rOto=",
       "System.Text.RegularExpressions.k8ibga7wut.wasm": "sha256-7OYvLuFLvwbax++2u+uoDmoaX8o/Q8wcYJC92eP1YjA=",
-      "UberExpenses.zpckktkgo4.wasm": "sha256-Z+W8NKNoD2cXyhwPXFj8ze+BOcFLKRY4z24Sn/a2CCk="
+      "UberExpenses.9sfhnvknfp.wasm": "sha256-Kb1biBCEhlIi8w0+6s1D890z/vYuNEBEds3LvSPX02k="
     }
   },
   "cacheBootResources": true,
