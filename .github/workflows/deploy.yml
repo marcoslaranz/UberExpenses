@@ -26,11 +26,14 @@ jobs:
       - name: Build and publish
         run: dotnet publish -c Release -o release --nologo
       
-      - name: Change base href
-        run: sed -i 's/<base href="\/" \/>/<base href="\/UberExpenses\/" \/>/g' release/wwwroot/index.html
-      
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+    - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+            path: ./release/wwwroot
+
+    - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4          
         with:
           publish_dir: ./release/wwwroot
           force_orphan: true
