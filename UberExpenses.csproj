@@ -9,13 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.11" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.3.0" />
   </ItemGroup>
   
   <Target Name="UpdateBaseHref" AfterTargets="Publish">
   <Message Importance="high" Text="Updating base href in index.html..." />
-  <XmlPoke XmlInputPath="$(PublishDir)wwwroot\index.html"
-           Query="/html/head/base/@href"
-           Value="/UberExpenses/" />
+  <XmlPoke XmlInputPath="$(PublishDir)wwwroot\index.html" Query="/html/head/base/@href" Value="/UberExpenses/" />
   </Target>
 
 </Project>

@@ -147,8 +147,10 @@
                             <td>@expense.TimeRecordStarted?.ToShortTimeString()</td>
                             <td>@expense.TimeRecordFinished?.ToShortTimeString()</td>
                             <td>@(expense.KmsFinish - @expense.KmsStart)</td>
-                            <td>@(expense.EarnDay?.ToString("C"))</td>
-                            <td>@(expense.PetroPrice?.ToString("C"))</td>
+                            <!-- <td>@(expense.EarnDay?.ToString("C"))</td> -->
+                            <td>@expense.EarnDay?.ToString("C", new System.Globalization.CultureInfo("en-NZ"))</td>
+                            <!-- <td>@(expense.PetroPrice?.ToString("C"))</td> -->
+                            <td>@expense.PetroPrice?.ToString("C", new System.Globalization.CultureInfo("en-NZ"))</td>
                             <td>
                                       
                                       
